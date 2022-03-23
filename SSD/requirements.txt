@@ -1,0 +1,9 @@
+Cython >=0.28.
+scikit-image
+ujson
+pybind11
+git+https://github.com/philferriere/cocoapi.git#subdirectory=PythonAPI
+pycocotools==2.0.0
+easydict
+omegaconf
+vizer
