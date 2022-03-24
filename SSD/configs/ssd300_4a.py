@@ -14,7 +14,7 @@ train = dict(
     amp=True, # Automatic mixed precision
     log_interval=20,
     seed=0,
-    epochs=10,
+    epochs=20,
     _output_dir=get_output_dir(),
     imshape=(300, 300),
     image_channels=3
@@ -49,7 +49,7 @@ model = L(SSD300)(
 
 optimizer = L(torch.optim.SGD)(
     # Tip: Scale the learning rate by batch size! 2.6e-3 is set for a batch size of 32. use 2*2.6e-3 if you use 64
-    lr=5e-4, momentum=0.9, weight_decay=0.0005
+    lr=5e-3, momentum=0.9, weight_decay=0.0005
 )
 schedulers = dict(
     linear=L(LinearLR)(start_factor=0.1, end_factor=1, total_iters=500),
