@@ -5,8 +5,8 @@ from ssd.modeling import SSD300, SSDMultiboxLoss, backbones, AnchorBoxes
 from tops.config import LazyCall as L
 from ssd.data.mnist import MNISTDetectionDataset
 from ssd import utils
-from ssd.data.transforms import  Normalize, ToTensor, GroundTruthBoxesToAnchors
-from torchvision.transforms import RandomCrop
+from ssd.data.transforms import  Normalize, ToTensor, GroundTruthBoxesToAnchors, Resize,RandomSampleCrop
+import torchvision.transforms as tr
 from ssd.data.mnist import MNISTDetectionDataset
 from .utils import get_dataset_dir, get_output_dir
 
@@ -63,8 +63,11 @@ data_train=dict(
         data_dir=get_dataset_dir("mnist_object_detection/train"),
         is_train=True,
         transform=L(torchvision.transforms.Compose)(transforms=[
-            #L(RandomCrop)(),
+            L(RandomSampleCrop)(),
+            #L(transform.AutoAugment)(policy = transform.AutoAugmentPolicy.SVHN),
+            #L(tr.RandomCrop)(),
             L(ToTensor)(), # ToTensor has to be applied before conversion to anchors.
+            L(Resize)(imshape="${train.imshape}"),
             # GroundTruthBoxesToAnchors assigns each ground truth to anchors, required to compute loss in training.
             L(GroundTruthBoxesToAnchors)(anchors="${anchors}", iou_threshold=0.5),
         ])
@@ -83,7 +86,8 @@ data_val=dict(
         data_dir=get_dataset_dir("mnist_object_detection/val"),
         is_train=False,
         transform=L(torchvision.transforms.Compose)(transforms=[
-            L(ToTensor)()
+            L(ToTensor)(),
+            #L(Resize)(imshape="${train.imshape}"),
         ])
     ),
     dataloader=L(torch.utils.data.DataLoader)(
