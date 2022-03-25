@@ -50,7 +50,7 @@ model = L(SSD300)(
 
 optimizer = L(torch.optim.Adam)(
     # Tip: Scale the learning rate by batch size! 2.6e-3 is set for a batch size of 32. use 2*2.6e-3 if you use 64
-    lr=2*5e-4,  weight_decay=0.0005,# momentum=0.9,
+    lr=2*5e-4,  weight_decay=0.005,# momentum=0.9,
 )
 schedulers = dict(
     linear=L(LinearLR)(start_factor=0.1, end_factor=1, total_iters=500),
@@ -67,7 +67,7 @@ data_train=dict(
             #L(transform.AutoAugment)(policy = transform.AutoAugmentPolicy.SVHN),
             #L(tr.RandomCrop)(),
             L(ToTensor)(), # ToTensor has to be applied before conversion to anchors.
-            L(Resize)(imshape="${train.imshape}"),
+            #L(Resize)(imshape="${train.imshape}"),
             # GroundTruthBoxesToAnchors assigns each ground truth to anchors, required to compute loss in training.
             L(GroundTruthBoxesToAnchors)(anchors="${anchors}", iou_threshold=0.5),
         ])
