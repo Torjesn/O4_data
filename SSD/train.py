@@ -65,6 +65,7 @@ def train(config_path: Path, evaluate_only: bool):
     dataloader_val = instantiate(cfg.data_val.dataloader)
     cocoGt = dataloader_val.dataset.get_annotations_as_coco()
     model = tops.to_cuda(instantiate(cfg.model))
+    print(instantiate(cfg.model))
     optimizer = instantiate(cfg.optimizer, params=utils.tencent_trick(model))
     scheduler = ChainedScheduler(instantiate(list(cfg.schedulers.values()), optimizer=optimizer))
     checkpointer.register_models(

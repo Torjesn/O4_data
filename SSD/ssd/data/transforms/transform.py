@@ -38,6 +38,7 @@ def jaccard_numpy(box_a, box_b):
     union = area_a + area_b - inter
     return inter / union  # [A,B]
 
+
 class RandomSampleCrop(torch.nn.Module):
     """Crop
     Implementation originally from: https://github.com/lufficc/SSD
@@ -157,12 +158,13 @@ class RandomSampleCrop(torch.nn.Module):
                 sample["lables"] = current_labels
                 return sample
 
+
 class RandomHorizontalFlip(torch.nn.Module):
 
     def __init__(self, p=0.5) -> None:
         super().__init__()
         self.p = p
- 
+
     def __call__(self, sample):
         image = sample["image"]
         if np.random.uniform() < self.p:
