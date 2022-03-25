@@ -32,6 +32,7 @@ class BasicModel(torch.nn.Module):
 
                 nn.ReLU(),
                 nn.MaxPool2d(2),
+                nn.BatchNorm2d(num_features=32),
                 nn.Conv2d(
                 in_channels=32,
                 out_channels= 64,
@@ -41,6 +42,7 @@ class BasicModel(torch.nn.Module):
 
                 nn.ReLU(),
                 nn.MaxPool2d(2),
+                nn.BatchNorm2d(num_features=64),
                 nn.Conv2d(
                 in_channels=64,
                 out_channels=64,
@@ -80,6 +82,7 @@ class BasicModel(torch.nn.Module):
                     padding=1
                 ),
                 nn.ReLU(),
+                nn.BatchNorm2d(num_features=conv_1_filter[layer_n]),
                 nn.Conv2d(
                         in_channels = conv_1_filter[layer_n],
                     out_channels= conv_2_filter[layer_n],
