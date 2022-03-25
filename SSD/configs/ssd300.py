@@ -62,7 +62,7 @@ data_train=dict(
         data_dir=get_dataset_dir("mnist_object_detection/train"),
         is_train=True,
         transform=L(torchvision.transforms.Compose)(transforms=[
-            L(RandomSampleCrop)(),
+            #L(RandomSampleCrop)(),
             L(ToTensor)(), # ToTensor has to be applied before conversion to anchors.
             # GroundTruthBoxesToAnchors assigns each ground truth to anchors, required to compute loss in training.
             L(GroundTruthBoxesToAnchors)(anchors="${anchors}", iou_threshold=0.5),
