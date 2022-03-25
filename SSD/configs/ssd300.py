@@ -5,7 +5,7 @@ from ssd.modeling import SSD300, SSDMultiboxLoss, backbones, AnchorBoxes
 from tops.config import LazyCall as L
 from ssd.data.mnist import MNISTDetectionDataset
 from ssd import utils
-from ssd.data.transforms import  Normalize, ToTensor, GroundTruthBoxesToAnchors, RandomSampleCrop
+from ssd.data.transforms import  Normalize, ToTensor, GroundTruthBoxesToAnchors, RandomCrop
 from ssd.data.mnist import MNISTDetectionDataset
 from .utils import get_dataset_dir, get_output_dir
 
@@ -49,7 +49,7 @@ model = L(SSD300)(
 
 optimizer = L(torch.optim.Adam)(
     # Tip: Scale the learning rate by batch size! 2.6e-3 is set for a batch size of 32. use 2*2.6e-3 if you use 64
-    lr=2*4e-4,  weight_decay=0.0005,# momentum=0.9,
+    lr=2*5e-4,  weight_decay=0.0005,# momentum=0.9,
 )
 schedulers = dict(
     linear=L(LinearLR)(start_factor=0.1, end_factor=1, total_iters=500),
@@ -62,7 +62,7 @@ data_train=dict(
         data_dir=get_dataset_dir("mnist_object_detection/train"),
         is_train=True,
         transform=L(torchvision.transforms.Compose)(transforms=[
-            #L(RandomSampleCrop)(),
+            #L(RandomCrop)(),
             L(ToTensor)(), # ToTensor has to be applied before conversion to anchors.
             # GroundTruthBoxesToAnchors assigns each ground truth to anchors, required to compute loss in training.
             L(GroundTruthBoxesToAnchors)(anchors="${anchors}", iou_threshold=0.5),
