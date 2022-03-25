@@ -19,9 +19,9 @@ schedulers.multistep.milestones = [70000, 9000]
 train.epochs = 40
 
 train_cpu_transform = L(torchvision.transforms.Compose)(transforms=[
+    L(RandomSampleCrop)(),
     L(ToTensor)(),
     L(RandomHorizontalFlip)(),
-    L(RandomSampleCrop)(),
     L(Resize)(imshape="${train.imshape}"),
     L(GroundTruthBoxesToAnchors)(anchors="${anchors}", iou_threshold=0.5),
 ])
