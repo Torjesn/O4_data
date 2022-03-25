@@ -55,8 +55,8 @@ class BasicModel(torch.nn.Module):
                 kernel_size=3,
                 stride=2,
                 padding=1),
-                nn.ReLU(),
-                nn.Dropout(p=0.1)
+                nn.ReLU()
+                
             )
         })
         
@@ -88,8 +88,7 @@ class BasicModel(torch.nn.Module):
                     stride=conv_stride_2,
                     padding=padding_2
                 ),
-                nn.ReLU(),
-                nn.Dropout(p=0.1)
+                nn.ReLU()
             )
             self.layers.update(nn.ModuleDict({f"layer_{layer_n}": sec_n}))
             
