@@ -81,6 +81,17 @@ class BasicModel(torch.nn.Module):
                     stride=conv_stride_1,
                     padding=1
                 ),
+
+                nn.ReLU(),
+                nn.BatchNorm2d(num_features=conv_1_filter[layer_n]),
+                nn.Conv2d(
+                        in_channels = conv_1_filter[layer_n],
+                    out_channels= conv_1_filter[layer_n],
+                    kernel_size=3,
+                    stride=conv_stride_1,
+                    padding=1
+                ),
+
                 nn.ReLU(),
                 nn.BatchNorm2d(num_features=conv_1_filter[layer_n]),
                 nn.Conv2d(
