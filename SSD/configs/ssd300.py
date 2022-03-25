@@ -5,7 +5,8 @@ from ssd.modeling import SSD300, SSDMultiboxLoss, backbones, AnchorBoxes
 from tops.config import LazyCall as L
 from ssd.data.mnist import MNISTDetectionDataset
 from ssd import utils
-from ssd.data.transforms import  Normalize, ToTensor, GroundTruthBoxesToAnchors, RandomCrop
+from ssd.data.transforms import  Normalize, ToTensor, GroundTruthBoxesToAnchors
+from torchvision.transforms import RandomCrop
 from ssd.data.mnist import MNISTDetectionDataset
 from .utils import get_dataset_dir, get_output_dir
 
